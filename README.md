@@ -4,6 +4,7 @@ The GoDaddy External IP Updater script can be used with a home lab and GoDaddy D
 Uses the following technologies:
 
 GoDaddy PowerShell Module by clintcolding: https://github.com/clintcolding/GoDaddy
+
 Get External/Public IP address 1 liner: https://gallery.technet.microsoft.com/scriptcenter/Get-ExternalPublic-IP-c1b601bb
 
 Download here: https://github.com/brenle/GoDaddyExtIPUpdater/releases
