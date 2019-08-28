@@ -1,0 +1,1 @@
+Powershell.exe -command "C:\Scripts\Update-ExtIP.ps1"
