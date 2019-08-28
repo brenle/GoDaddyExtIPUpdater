@@ -26,3 +26,6 @@ https://github.com/brenle/GoDaddyExtIPUpdater/releases
 
 - 1.0 - initial release
 - 1.1 - BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
+
+# Warning
+This script is present as-is without any support.  I am not responsible for any damage using this script may cause.  This script requires you to keep your GoDaddy API key and secret in clear text within the script, as well as saved in the apiKey.csv file created by the GoDaddy powershell module, which can be potentially damaging if given to the wrong hands.  I do not recommend using this script in production (non-lab) environments. Use at your own risk.
