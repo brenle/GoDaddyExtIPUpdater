@@ -24,5 +24,5 @@ https://github.com/brenle/GoDaddyExtIPUpdater/releases
 
 # Change Log:
 
-- 1.0 - initial release \n
+- 1.0 - initial release
 - 1.1 - BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
