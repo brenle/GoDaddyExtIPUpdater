@@ -19,3 +19,8 @@ To setup:
 6) update location of script in UpdateIP.bat file
 7) Download the GoDaddy PS Module and set directory path in the script (https://github.com/clintcolding/GoDaddy).
 8) Setup task manager to run the UpdateIP.bat file. I run every 5 min.
+
+Change Log:
+
+1.0 - initial release
+1.1 - BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.

@@ -1,5 +1,5 @@
 <#
-Version 1.0
+Version 1.1
 Created by Brendon Lee
 
 NOTE:
@@ -9,6 +9,9 @@ Uses the following technologies:
 GoDaddy PowerShell Module by clintcolding: https://github.com/clintcolding/GoDaddy
 Get External/Public IP address 1 liner: https://gallery.technet.microsoft.com/scriptcenter/Get-ExternalPublic-IP-c1b601bb
 
+Fixes:
+
+1.1: BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
 #>
 
 Param([string]$testip)
@@ -108,23 +111,28 @@ if($testip)
     $ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 }
 
-$IPSame = CheckIP $ip
-
-if($IPSame)
+if($null -ne $ip)
 {
-    LogWrite "No change in External IP address $ip"
-    
-} else {
-    $IPLog = Import-Csv $IPLogCSV
-    if($IPLog.PreviousIP -eq "null")
-    {
-        #first run
-        $IPLog.PreviousIP = "none"
-        Export-Csv $IPLogCSV -InputObject $IPLog -NoTypeInformation
-        LogWrite "Initial IP address detected as $ip"
+    $IPSame = CheckIP $ip
 
+    if($IPSame)
+    {
+        LogWrite "No change in External IP address $ip"
+        
     } else {
-        LogWrite "New External IP address detected as $ip"
-        updateGoDaddy $IPlog.PreviousIP $ip
+        $IPLog = Import-Csv $IPLogCSV
+        if($IPLog.PreviousIP -eq "null")
+        {
+            #first run
+            $IPLog.PreviousIP = "none"
+            Export-Csv $IPLogCSV -InputObject $IPLog -NoTypeInformation
+            LogWrite "Initial IP address detected as $ip"
+
+        } else {
+            LogWrite "New External IP address detected as $ip"
+            updateGoDaddy $IPlog.PreviousIP $ip
+        }
     }
+} else {
+    LogWrite "Internet appears to be down.  If not, check to make sure ipinfo.io is accessible from this computer."
 }
