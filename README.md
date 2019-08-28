@@ -7,9 +7,11 @@ GoDaddy PowerShell Module by clintcolding: https://github.com/clintcolding/GoDad
 
 Get External/Public IP address 1 liner: https://gallery.technet.microsoft.com/scriptcenter/Get-ExternalPublic-IP-c1b601bb
 
-Download here: https://github.com/brenle/GoDaddyExtIPUpdater/releases
+# Download:
 
-To setup:
+https://github.com/brenle/GoDaddyExtIPUpdater/releases
+
+# To setup:
 
 1) Create a GoDaddy API Key/Secret here: https://developer.godaddy.com/keys/ (make sure you use Production keys)
 2) Save API key/secret in script (variables at top)
@@ -20,7 +22,7 @@ To setup:
 7) Download the GoDaddy PS Module and set directory path in the script (https://github.com/clintcolding/GoDaddy).
 8) Setup task manager to run the UpdateIP.bat file. I run every 5 min.
 
-Change Log:
+# Change Log:
 
-1.0 - initial release
-1.1 - BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
+- 1.0 - initial release \n
+- 1.1 - BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
