@@ -6,6 +6,8 @@ Uses the following technologies:
 GoDaddy PowerShell Module by clintcolding: https://github.com/clintcolding/GoDaddy
 Get External/Public IP address 1 liner: https://gallery.technet.microsoft.com/scriptcenter/Get-ExternalPublic-IP-c1b601bb
 
+Download here: https://github.com/brenle/GoDaddyExtIPUpdater/releases
+
 To setup:
 
 1) Create a GoDaddy API Key/Secret here: https://developer.godaddy.com/keys/ (make sure you use Production keys)
