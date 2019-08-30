@@ -1,5 +1,5 @@
 <#
-Version 1.1
+Version 1.2
 Created by Brendon Lee
 
 NOTE:
@@ -9,9 +9,10 @@ Uses the following technologies:
 GoDaddy PowerShell Module by clintcolding: https://github.com/clintcolding/GoDaddy
 Get External/Public IP address 1 liner: https://gallery.technet.microsoft.com/scriptcenter/Get-ExternalPublic-IP-c1b601bb
 
-Fixes:
+Changelog:
 
 1.1: BugFix; When internet is DOWN and script runs, $ip is returned as $null, which will break the enitre process.
+1.2: Added variable to update Cloud-based dns provider if used (NextDns/OpenDns/CloudFlare/etc).  Tested with NextDNS.
 #>
 
 Param([string]$testip)
@@ -21,6 +22,7 @@ $godaddypath = "C:\scripts" #This is the location of the godaddy powershell modu
 $GoDaddyAPIKey = "" #Godaddy api key
 $GoDaddySecret = "" #Godaddy api secret
 $domainsToUpdate = "domain1.com","domain2.com" #domains you want to have this update
+$CloudDnsUpdateUrl = "" #OPTIONAL: If you have a cloud DNS provider that uses your external IP to identify you, and it supports updating that IP programically with a URL, you can past it here.  Leave blank and it will not be used.
 
 #No need to update these values unless you want to change locations:
 $LogFile = "C:\Scripts\UpdateExtIP.log" #This is the Log file location (will auto create)
@@ -98,6 +100,21 @@ function updateGoDaddy([string]$previp,[string]$newip)
 
 }
 
+function UpdateCloudDNS([string]$extip)
+{
+    if($CloudDnsUpdateUrl -ne "")
+    {
+        $status = Invoke-WebRequest $CloudDnsUpdateUrl
+        if($status.Statuscode -eq 200)
+        {
+            LogWrite "Cloud DNS Provider external IP updated to $extip"
+
+        } else {
+            LogWrite "Error code $($status.Statuscode) received when updating cloud DNS to $extip"
+        }
+    }
+}
+
 $iplogExists = Test-Path $IPLogCSV
 if(!$iplogExists)
 {
@@ -131,6 +148,7 @@ if($null -ne $ip)
         } else {
             LogWrite "New External IP address detected as $ip"
             updateGoDaddy $IPlog.PreviousIP $ip
+            UpdateCloudDNS $ip
         }
     }
 } else {
